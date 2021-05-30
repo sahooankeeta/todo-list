@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Original+Surfer&family=Roboto:wght@100&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="/images-icons/to-do-list.png"
+    />
+
+    <title>Tracker &mdash;DO IT</title>
+  </head>
+  <body>
+    <main class="container">
+      <h1>
+        Todo List
+        <span>Get things done, one item at a time.</span>
+      </h1>
+      <!-- FORM TO ADD A NEW TASK -->
+      <form action="/" method="POST">
+        <div class="new-item">
+          <label class="heading" for="task">Add to the todo list</label>
+          <input type="text" name="task" id="task" />
+        </div>
+        <div class="tasktype">
+          <label class="heading" for="category">Category</label>
+          <select name="category" id="category">
+            <option value="personal">personal</option>
+            <option value="professional">professional</option>
+          </select>
+        </div>
+        <div class="date">
+          <label class="heading" for="deadline">Deadline</label>
+          <input type="date" id="deadline" name="deadline" />
+        </div>
+
+        <button type="submit">Add item</button>
+      </form>
+      <!-- FORM TO UPDATE/EDIT A TASK -->
+      <form class="update-box hide" action="/edittask/:id" method="POST">
+        <div class="new-item">
+          <label class="heading" for="task">Add to the todo list</label>
+          <input type="text" name="task" id="task" />
+        </div>
+        <div class="tasktype">
+          <label class="heading" for="category">Category</label>
+          <select name="category" id="category">
+            <option value="personal">personal</option>
+            <option value="professional">professional</option>
+          </select>
+        </div>
+        <div class="date">
+          <label class="heading" for="deadline">Deadline</label>
+          <input type="date" id="deadline" name="deadline" />
+        </div>
+
+        <button type="submit">UPDATE</button>
+      </form>
+      <!-- LIST OF TASKS TO BE DONE -->
+      <section class="tasks">
+        <!-- IF THERE ARE NO TASKS -->
+        <% if (todolist.length==0){%>
+        <div class="empty">
+          <img src="/images-icons/cartoon.png" />
+          <h2>no tasks <br />you are up-to-date</h2>
+        </div>
+        <%}%>
+        <!-- IF THERE ARE TASKS -->
+        <% for(let i of todolist){%>
+        <div class="item" id="<%=i.id%>">
+          <div class="item__type"><%= i.category%></div>
+          <div class="item__task"><%= i.task%></div>
+          <div class="item__deadline"><%= i.deadline%></div>
+          <div class="button">
+            <a class="update-btn" href="#">
+              <svg>
+                <use xlink:href="/images-icons/sprite.svg#icon-pencil"></use>
+              </svg>
+            </a>
+            <a href="/deletetask/<%=i.id%>">
+              <svg>
+                <use xlink:href="/images-icons/sprite.svg#icon-trash"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <%}%>
+      </section>
+    </main>
+    <script type="text/javascript" src="/js/script.js"></script>
+  </body>
+</html>
